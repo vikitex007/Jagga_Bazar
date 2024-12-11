@@ -28,11 +28,22 @@ class _SignUpScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text("Registration Page", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.transparent,
+        title: const Text(
+          "Registration Page",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
-        elevation: 0,
+        elevation: 0, // Removes shadow
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0), // Height of the line
+          child: Container(
+            color: Colors.white.withOpacity(0.5), // Semi-transparent line color
+            height: 1.0, // Thickness of the line
+          ),
+        ),
       ),
+
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
