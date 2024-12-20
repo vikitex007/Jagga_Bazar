@@ -41,7 +41,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               _buildOnboardPage(
                 backgroundPath: './assets/images/back2.jpg',
                 logoPath: './assets/images/jagg.png',
-                title: "Explore Properties",
+                title:"Explore Properties",
                 description: "Browse through a wide range of properties\nand find your perfect match.",
               ),
               _buildOnboardPage(
@@ -62,7 +62,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               child: SmoothPageIndicator(
                 controller: _pageController,
                 count: 3,
-                effect: WormEffect(
+                effect: const WormEffect(
                   dotColor: Colors.white54,
                   activeDotColor: Colors.white,
                   dotHeight: 8,

@@ -161,7 +161,7 @@ import 'package:flutter/material.dart';
 import 'package:jaggabazar/view/bottom_navigation/profile_screen.dart';
 import 'bottom_navigation/favourite_screen.dart';
 import 'bottom_navigation/home_screen.dart';
-import 'bottom_navigation/search_screen.dart';
+import 'bottom_navigation/add_post_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -173,14 +173,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final List<String> _titles = [
     "Home",
-    "Search",
+    "Add Post",
     "Favorites",
     "Profile",
   ];
 
   final List<Widget> _bottomScreens = [
     const HomeScreen(),
-    const SearchScreen(),
+    const AddPostScreen(),
     const FavouriteScreen(),
     const ProfileScreen(),
   ];
@@ -193,6 +193,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           _titles[_selectedIndex],
           style: const TextStyle(color: Colors.white),
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(35, 50, 60, 1.0),
       ),
@@ -208,8 +209,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
+            icon: Icon(Icons.add),
+            label: "Add Post",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
