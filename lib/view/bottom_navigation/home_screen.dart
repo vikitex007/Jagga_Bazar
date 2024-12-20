@@ -275,6 +275,7 @@ class HomeScreen extends StatelessWidget {
                 endIndent: 10, // Right indentation
               ),
               // Row for "Apartment"
+              // Inside the body of the Scaffold (for the Apartment section):
               const Text(
                 'Apartment',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -283,34 +284,91 @@ class HomeScreen extends StatelessWidget {
                 height: 250, // Increase height for larger apartment images
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 7, // Example: 5 posts for Apartment
+                  itemCount: 7, // Example: 7 posts for Apartment
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: 200, // Make the card wider
-                      margin: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Image.asset(
-                                  'assets/post/apart/apart${index + 1}.jpeg', // Replace with unique apartment images
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              backgroundColor: Colors.transparent,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset(
+                                          'assets/post/apart/apart${index + 1}.jpeg', // Replace with unique apartment images
+                                          fit: BoxFit.cover,
+                                          width: double.maxFinite,
+                                          height: 200, // Make the image larger
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Apartment ${index + 1} Details',
+                                          style: const TextStyle(
+                                              fontSize: 20, fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          'Location: Some location',
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          'Price: Rs. 100,000',
+                                          style: TextStyle(fontSize: 16, color: Colors.green),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context); // Close the dialog
+                                          },
+                                          child: const Text('Close'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Apartment ${index + 1}',
-                                  style: const TextStyle(fontSize: 16),
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        width: 200, // Make the card wider
+                        margin: const EdgeInsets.all(8.0),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Image.asset(
+                                    'assets/post/apart/apart${index + 1}.jpeg', // Replace with unique apartment images
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Apartment ${index + 1}',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -318,6 +376,7 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
+
 
               const Divider(
                 color: Colors.grey, // Line color
@@ -327,6 +386,7 @@ class HomeScreen extends StatelessWidget {
               ),
 
               // Row for "Home"
+              // Inside the body of the Scaffold (for the Home section):
               const Text(
                 'Home',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -335,34 +395,91 @@ class HomeScreen extends StatelessWidget {
                 height: 250, // Increase height for larger home images
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 7, // Example: 5 posts for Home
+                  itemCount: 7, // Example: 7 posts for Home
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: 200, // Make the card wider
-                      margin: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Image.asset(
-                                  'assets/post/home/home${index + 1}.jpeg', // Replace with unique home images
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              backgroundColor: Colors.transparent,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset(
+                                          'assets/post/home/home${index + 1}.jpeg', // Replace with unique home images
+                                          fit: BoxFit.cover,
+                                          width: double.maxFinite,
+                                          height: 200, // Make the image larger
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Home ${index + 1} Details',
+                                          style: const TextStyle(
+                                              fontSize: 20, fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          'Location: Some location',
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          'Price: Rs. 100,000',
+                                          style: TextStyle(fontSize: 16, color: Colors.green),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context); // Close the dialog
+                                          },
+                                          child: const Text('Close'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Home ${index + 1}',
-                                  style: const TextStyle(fontSize: 16),
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        width: 200, // Make the card wider
+                        margin: const EdgeInsets.all(8.0),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Image.asset(
+                                    'assets/post/home/home${index + 1}.jpeg', // Replace with unique home images
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Home ${index + 1}',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -370,6 +487,7 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
+
             ],
           ),
         ),
