@@ -188,7 +188,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 0 ? null : AppBar(  // यदि _selectedIndex 0 हो भने AppBar नदेखाउने
+      appBar: _selectedIndex == 0 ? null : AppBar(
         title: Text(
           _titles[_selectedIndex],
           style: const TextStyle(color: Colors.white),

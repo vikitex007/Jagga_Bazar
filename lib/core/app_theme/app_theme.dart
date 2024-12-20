@@ -33,7 +33,9 @@ ThemeData getApplicationTheme(){
         ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(),
+        borderSide: BorderSide(
+          color: Colors.black,
+        ),
       ),
     ),
   );
