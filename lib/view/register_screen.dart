@@ -56,9 +56,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Create an Account',
                       style: TextStyle(
+                        fontFamily: 'Montserrat Italic',
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
