@@ -8,9 +8,12 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+
 
   String? _selectedLocation;
   final List<String> _locations = ['Kathmandu', 'Jhapa', 'Dhangadi', 'Pokhara'];
@@ -155,7 +158,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                           ),
+
+                          //Email Textfield
                           const SizedBox(height: 20.0),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              hintText: 'Enter your Email',
+                              labelStyle: const TextStyle(color: Colors.white),
+                              hintStyle: const TextStyle(color: Colors.white54),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.2),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            keyboardType: TextInputType.phone,
+                            style: const TextStyle(color: Colors.white),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your Email';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20.0),
+
+
 
                           // Password Field
                           TextFormField(
