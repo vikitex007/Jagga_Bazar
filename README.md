@@ -21,3 +21,4 @@ samples, guidance on mobile development, and a full API reference.
 ![Screenshot_20241213_132627.png](assets/screenshot/login.png)
 ![Screenshot_20241213_132638.png](assets/screenshot/register.png)
 ![Screenshot_20241213_132705.png](assets/screenshot/dashboard.png)
+![Screenshot_20241213_132705.png](assets/screenshot/dashboard_tablet.png)

@@ -1,5 +1,7 @@
-import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:jaggabazar/view/bottom_navigation/profile_screen.dart';
+import 'package:jaggabazar/view/login_screen.dart';
 
 class Property {
   final String title;
@@ -66,6 +68,8 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+
         backgroundColor: const Color.fromRGBO(35, 50, 60, 1.0),
         title: SizedBox(
           width: double.infinity,
@@ -98,16 +102,24 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Circular avatar at the top-right
-              const CircleAvatar(
-                backgroundImage:
-                AssetImage('assets/images/pp.jpeg'), // Replace with your avatar image path
-                radius: 18,
-              ),
+              // Circular avatar at the top-right\
+              GestureDetector(
+                onTap: () {
+                  _showOptions(context);
+
+                } ,
+                child:const CircleAvatar(
+                  backgroundImage:
+                  AssetImage('assets/images/pp.jpeg'), // Replace with your avatar image path
+                  radius: 18,
+                ),
+              )
             ],
           ),
         ),
       ),
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -494,4 +506,40 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+
+void _showOptions(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Go to Profile'),
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context) => const ProfileScreen(),)); // Close the slider
+              // Navigate to the profile page
+              // Example: Navigator.push(context, MaterialPageRoute(builder: (_) => ProfilePage()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context) => const LoginScreen(),));
+              // Close the slider
+              // Perform logout logic here
+              // Example: auth.signOut();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
