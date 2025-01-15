@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:jaggabazar/view/bottom_navigation/profile_screen.dart';
-import 'package:jaggabazar/view/login_screen.dart';
+import 'package:jagga_bazar/view/bottom_navigation/profile_screen.dart';
+
+import '../login_screen.dart';
 
 class Property {
   final String title;

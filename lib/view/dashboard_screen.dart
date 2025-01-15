@@ -158,10 +158,11 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:jaggabazar/view/bottom_navigation/profile_screen.dart';
+
 import 'bottom_navigation/favourite_screen.dart';
 import 'bottom_navigation/home_screen.dart';
 import 'bottom_navigation/add_post_screen.dart';
+import 'bottom_navigation/profile_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
