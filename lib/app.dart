@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jaggabazar/view/dashboard_screen.dart';
-import 'package:jaggabazar/view/login_screen.dart';
-import 'package:jaggabazar/view/onboard_screen.dart';
-import 'package:jaggabazar/view/register_screen.dart';
+import 'package:jagga_bazar/view/dashboard_screen.dart';
+import 'package:jagga_bazar/view/login_screen.dart';
+import 'package:jagga_bazar/view/onboard_screen.dart';
+import 'package:jagga_bazar/view/register_screen.dart';
+
 
 import 'core/app_theme/app_theme.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
 
       initialRoute: '/dashboard',
       routes: {
-        '/onboard': (context)=> const OnboardScreen(),
+        // '/onboard': (context)=> const OnboardScreen(),
         '/dashboard':(context) => DashboardScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => RegisterScreen(), // Add your RegisterScreen here
