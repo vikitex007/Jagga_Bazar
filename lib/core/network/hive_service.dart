@@ -4,19 +4,18 @@ import 'package:path_provider/path_provider.dart';
 import '../../app/constants/hive_table_constant.dart';
 import '../../features/auth/data/model/auth_hive_model.dart';
 
-
 class HiveService {
   static Future<void> init() async {
     // Initialize the database
     var directory = await getApplicationDocumentsDirectory();
-    var path = '${directory.path}softwarica_student_management.db';
+    var path = '${directory.path}jagga_bazar_mobile.db';
 
     Hive.init(path);
 
     // Register Adapters
     // Hive.registerAdapter(CourseHiveModelAdapter());
     // Hive.registerAdapter(BatchHiveModelAdapter());
-    // Hive.registerAdapter(AuthHiveModelAdapter());
+    Hive.registerAdapter(AuthHiveModelAdapter());
   }
 
   // // Batch Queries
@@ -106,14 +105,14 @@ class HiveService {
     return user;
   }
 
-  // Future<void> clearAll() async {
-  //   await Hive.deleteBoxFromDisk(HiveTableConstant.batchBox);
-  //   await Hive.deleteBoxFromDisk(HiveTableConstant.courseBox);
-  //   await Hive.deleteBoxFromDisk(HiveTableConstant.studentBox);
-  // }
+  Future<void> clearAll() async {
+    // await Hive.deleteBoxFromDisk(HiveTableConstant.batchBox);
+    // await Hive.deleteBoxFromDisk(HiveTableConstant.courseBox);
+    await Hive.deleteBoxFromDisk(HiveTableConstant.userBox);
+  }
 
   // Clear Student Box
-  Future<void> clearStudentBox() async {
+  Future<void> clearUserBox() async {
     await Hive.deleteBoxFromDisk(HiveTableConstant.userBox);
   }
 
