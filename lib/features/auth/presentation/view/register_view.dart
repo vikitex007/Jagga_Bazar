@@ -275,12 +275,12 @@ class _RegisterViewState extends State<RegisterView> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: _register,
-                              // style: ElevatedButton.styleFrom(
-                              //   backgroundColor: Colors.blue,
-                              //   shape: RoundedRectangleBorder(
-                              //     borderRadius: BorderRadius.circular(10.0),
-                              //   ),
-                              // ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
                               child: const Text(
                                 'Register',
                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),

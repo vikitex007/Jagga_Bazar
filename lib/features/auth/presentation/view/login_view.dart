@@ -60,8 +60,8 @@ class LoginView extends StatelessWidget {
                           TextFormField(
                             controller: emailController,
                             decoration: InputDecoration(
-                              labelText: 'Email',
-                              hintText: 'Enter Email',
+                              labelText: 'Username',
+                              hintText: 'Enter Username',
                               labelStyle: const TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white54),
                               filled: true,
