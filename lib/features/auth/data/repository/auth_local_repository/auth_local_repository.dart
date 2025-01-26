@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/common/internet_checker/internet_checker.dart';
+import '../../../../../core/error/failure.dart';
 import '../../../domain/entity/auth_entity.dart';
 import '../../../domain/repository/auth_repository.dart';
 import '../../data_source/local_data_source/auth_local_datasource.dart';

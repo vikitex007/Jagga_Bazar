@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../app/shared_prefs/token_shared_prefs.dart';
 import '../../../../core/common/internet_checker/internet_checker.dart';
+import '../../../../core/error/failure.dart';
 import '../entity/auth_entity.dart';
 import '../repository/auth_repository.dart';
 

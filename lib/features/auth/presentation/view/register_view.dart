@@ -71,7 +71,7 @@ class _RegisterViewState extends State<RegisterView> {
           // Semi-transparent overlay for better contrast
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withOpacity(0.7),
             ),
           ),
 

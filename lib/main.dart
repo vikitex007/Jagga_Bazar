@@ -8,7 +8,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await HiveService.init();
 
-  // WidgetsFlutterBinding.ensureInitailized();
   await initDependencies();
   runApp(
     App(),
