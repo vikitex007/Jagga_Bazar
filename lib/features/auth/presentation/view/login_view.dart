@@ -113,7 +113,7 @@ class LoginView extends StatelessWidget {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (formKey.currentState?.validate() ?? false) {
+                                if (formKey.currentState!.validate() ?? false) {
                                   context.read<LoginBloc>().add(
                                     LoginUserEvent(
                                       context: context,

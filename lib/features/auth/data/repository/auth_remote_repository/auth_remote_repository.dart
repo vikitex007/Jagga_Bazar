@@ -29,7 +29,6 @@ class AuthRemoteRepository implements IAuthRepository{
    try{
      final token = await _authRemoteDataSource.loginUser(username, password);
          return Right(token);
-
    }
 
    catch(e){
@@ -41,6 +40,7 @@ class AuthRemoteRepository implements IAuthRepository{
   Future<Either<Failure, void>> registerUser(AuthEntity user) async{
     try{
       return Right(_authRemoteDataSource.registerUser(user));
+      return Right(null);
     }catch(e){
       return Left(ApiFailure(message: e.toString()));
     }
@@ -49,9 +49,14 @@ class AuthRemoteRepository implements IAuthRepository{
   }
 
   @override
-  Future<Either<Failure, String>> uploadProfilePicture(File file) {
-    // TODO: implement uploadProfilePicture
-    throw UnimplementedError();
+  Future<Either<Failure, String>> uploadProfilePicture(File file) async{
+   try{
+     final imageName = await _authRemoteDataSource.uploadProfilePicture(file);
+     return Right(imageName);
+   }catch(e){
+     return Left(ApiFailure(message: e.toString()));
+
+   }
   }
 
 }

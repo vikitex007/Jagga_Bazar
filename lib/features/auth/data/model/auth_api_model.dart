@@ -4,6 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:jagga_bazar/features/auth/domain/entity/auth_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+
+part 'auth_api_model.g.dart';
+
 @JsonSerializable()
 class AuthApiModel extends Equatable{
 
@@ -26,26 +29,14 @@ class AuthApiModel extends Equatable{
     required this.password,
 });
 
-  // factory AuthApiModel.fromJson (Map<String,dynamic> json) =>
-  //     _$AuthApiModelFromJson(json);
-  // Map <String,dynamic> toJson()=> _$AuthApiModelFromJson(this);
-  //
+  factory AuthApiModel.fromJson (Map<String,dynamic> json) =>
+      _$AuthApiModelFromJson(json);
+  Map <String,dynamic> toJson()=> _$AuthApiModelToJson(this);
 
 
-  //From Entity
-  factory AuthApiModel.fromEntity(AuthEntity entity){
-    return AuthApiModel(
-      userId: entity.userId,
-      fullName: entity.fullName,
-      image: entity.image,
-      phone: entity.phone,
-      location: entity.location,
-      username: entity.username,
-      password: entity.password
 
-    );
-  }
 
+//to entity
   AuthEntity toEntity(){
     return AuthEntity(
         userId: userId,
@@ -57,7 +48,19 @@ class AuthApiModel extends Equatable{
         password: password
     );
   }
+//From Entity
+  factory AuthApiModel.fromEntity(AuthEntity entity){
+    return AuthApiModel(
+        userId: entity.userId,
+        fullName: entity.fullName,
+        image: entity.image,
+        phone: entity.phone,
+        location: entity.location,
+        username: entity.username,
+        password: entity.password
 
+    );
+  }
 
 
 

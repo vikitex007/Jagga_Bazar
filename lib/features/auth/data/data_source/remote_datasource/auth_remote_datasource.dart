@@ -17,28 +17,26 @@ class AuthRemoteDataSource implements IAuthDataSource {
   }
 
   @override
-  Future<String> loginUser(String username, String password) async{
+  Future<String> loginUser(String username, String password) async {
     try{
-      final Response response = await _dio.post(
+      Response response = await _dio.post(
         ApiEndpoints.login,
         data: {
-          'username' :username,
-          'password' :password
-        }
-
+          "username":username,
+          "password":password
+        },
       );
-      if (response.statusCode == 200) {
-        return "Login successful";
-      } else {
-        throw Exception("Login failed: ${response.statusMessage}");
+      if(response.statusCode ==200){
+        final str = response.data['token'];
+        return str;
+      }else{
+        throw Exception(response.statusMessage);
       }
-
-    }on DioException catch (e) {
-      throw Exception("HTTP error: ${e.response?.statusCode} - ${e.message}");
+    }on DioException catch (e){
+      throw Exception(e);
     }
-
     catch(e){
-      throw Exception("Unexpected error: $e");
+      throw Exception(e);
 
     }
   }
@@ -59,14 +57,40 @@ class AuthRemoteDataSource implements IAuthDataSource {
       } else {
         throw Exception(response.statusMessage);
       }
+    } on DioException catch (e) {
+      throw Exception(e);
     } catch (e) {
       throw Exception(e);
     }
   }
 
   @override
-  Future<String> uploadProfilePicture(File file) {
-    // TODO: implement uploadProfilePicture
-    throw UnimplementedError();
+  Future<String> uploadProfilePicture(File file) async {
+    try {
+      String fileName = file.path
+          .split('/')
+          .last;
+      FormData formData = FormData.fromMap({
+        'profilePicture':await MultipartFile.fromFile(file.path,filename: fileName),
+
+      }
+      );
+      Response response = await _dio.post(
+        ApiEndpoints.uploadImage,
+        data: formData,
+      );
+      if(response.statusCode == 200){
+        final str =response.data['data'];
+        return str;
+      }else{
+        throw Exception(response.statusMessage);
+      }
+    }on DioException catch(e){
+      throw Exception(e);
+    }
+    catch(e){
+      throw Exception(e);
+
+    }
   }
 }

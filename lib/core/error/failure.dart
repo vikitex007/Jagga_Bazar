@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
@@ -19,4 +20,10 @@ class ApiFailure extends Failure {
       this.statusCode,
         required super.message,
       });
+}
+
+class SharedPrefsFailure extends Failure{
+  const SharedPrefsFailure({
+    required super.message
+});
 }
