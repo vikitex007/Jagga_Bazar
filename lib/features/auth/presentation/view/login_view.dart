@@ -28,7 +28,7 @@ class LoginView extends StatelessWidget {
           // Semi-transparent overlay for better contrast
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withOpacity(0.7),
             ),
           ),
 
@@ -41,7 +41,7 @@ class LoginView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Welcome Back',
+                      'Welcome To Jagga Bazar',
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class LoginView extends StatelessWidget {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (formKey.currentState?.validate() ?? false) {
+                                if (formKey.currentState!.validate() ?? false) {
                                   context.read<LoginBloc>().add(
                                     LoginUserEvent(
                                       context: context,

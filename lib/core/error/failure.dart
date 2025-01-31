@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
@@ -14,9 +15,15 @@ class LocalDatabaseFailure extends Failure {
 }
 
 class ApiFailure extends Failure {
-  final int statusCode;
-  const ApiFailure(
-      this.statusCode, {
+  final int? statusCode;
+  const ApiFailure({
+      this.statusCode,
         required super.message,
       });
+}
+
+class SharedPrefsFailure extends Failure{
+  const SharedPrefsFailure({
+    required super.message
+});
 }

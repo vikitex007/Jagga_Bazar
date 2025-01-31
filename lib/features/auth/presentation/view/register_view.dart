@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../view_model/register/register_bloc.dart';
 
 class RegisterView extends StatefulWidget {
@@ -21,25 +22,43 @@ class _RegisterViewState extends State<RegisterView> {
   // final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _location = TextEditingController();
 
+
   // String? _selectedLocation;
   // final List<String> _locations = ['Kathmandu', 'Jhapa', 'Dhangadi', 'Pokhara'];
 
-  File? _selectedImage;
 
-  final ImagePicker _imagePicker = ImagePicker();
+  // Check for camera permission
+  Future<void> checkCameraPermission() async {
+    if (await Permission.camera.request().isRestricted ||
+        await Permission.camera.request().isDenied) {
+      await Permission.camera.request();
+    }
+  }
 
-  // Function to pick an image
-  // Future<void> _pickImage() async {
-  //   final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       _selectedImage = File(pickedFile.path);
-  //     });
-  //   }
-  // }
+  File? _img;
+  Future _browseImage(ImageSource imageSource)async{
+    try{
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if(image!=null){
+        setState(() {
+          _img =File(image.path);
+          context.read<RegisterBloc>().add(
+            LoadImage(file: _img!),
+          );
+
+        });
+      }else{
+        return;
+      }
+    }catch(e){
+      debugPrint(e.toString());
+    }
+  }
 
   void _register() {
     if (_formKey.currentState!.validate()) {
+      final registerState = context.read<RegisterBloc>().state;
+      final imageName =registerState.imageName;
       // Trigger the RegisterBloc event
       context.read<RegisterBloc>().add(
         RegisterUser(
@@ -49,6 +68,7 @@ class _RegisterViewState extends State<RegisterView> {
           location: _location.text,
           username: _usernameController.text,
           password: _passwordController.text,
+          image: imageName,
         ),
       );
     }
@@ -71,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
           // Semi-transparent overlay for better contrast
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withOpacity(0.7),
             ),
           ),
 
@@ -113,6 +133,8 @@ class _RegisterViewState extends State<RegisterView> {
                               children: [
                                 ElevatedButton.icon(
                                   onPressed: () {
+                                    checkCameraPermission();
+                                    _browseImage(ImageSource.camera);
                                     Navigator.pop(context);
                                     // Upload image it is not null
                                   },
@@ -120,7 +142,10 @@ class _RegisterViewState extends State<RegisterView> {
                                   label: const Text('Camera'),
                                 ),
                                 ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _browseImage(ImageSource.gallery);
+                                    Navigator.pop(context);
+                                  },
                                   icon: const Icon(Icons.image),
                                   label: const Text('Gallery'),
                                 ),
@@ -134,13 +159,13 @@ class _RegisterViewState extends State<RegisterView> {
                         width: 200,
                         child: CircleAvatar(
                           radius: 50,
-                          // backgroundImage: _img != null
-                          //     ? FileImage(_img!)
-                          //     : const AssetImage('assets/images/profile.png')
-                          //         as ImageProvider,
-                          backgroundImage:
-                          const AssetImage('assets/images/profile.png')
-                          as ImageProvider,
+                          backgroundImage: _img != null
+                              ? FileImage(_img!)
+                              : const AssetImage('assets/images/profile.png')
+                                  as ImageProvider,
+                          // backgroundImage:
+                          // const AssetImage('assets/images/profile.png')
+                          // as ImageProvider,
                         ),
                       ),
                     ),

@@ -19,3 +19,4 @@ samples, guidance on mobile development, and a full API reference.
 ![Screenshot_20241213_132616.png](assets/screenshot/Splash.png)
 ![Screenshot_20241213_132627.png](assets/screenshot/Login.png)
 ![Screenshot_20241213_132638.png](assets/screenshot/Register.png)
+![Screenshot_20241213_132638.png](assets/screenshot/Register.png)
