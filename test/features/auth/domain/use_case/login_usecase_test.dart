@@ -5,15 +5,14 @@ import 'package:jagga_bazar/features/auth/domain/use_case/login_usecase.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'auth_repo.mock.dart';
-import 'token.mock.dart';
 
 void main() {
-  late AuthRepoMock repository;
+  late MockAuthRepository repository;
   late MockTokenSharedPrefs tokenSharedPrefs;
   late LoginUseCase loginUseCase;
 
   setUp(() {
-    repository = AuthRepoMock();
+    repository = MockAuthRepository();
     tokenSharedPrefs = MockTokenSharedPrefs();
     loginUseCase = LoginUseCase(repository, tokenSharedPrefs);
 
@@ -22,7 +21,7 @@ void main() {
         .thenAnswer((_) async => const Right('mocked_token'));
   });
 
-  test('should call the [AuthRepo.login] with correct username and password', () async {
+  test('Test 6: should call the [AuthRepo.login] with correct username and password', () async {
     // ✅ Mock loginUser behavior
     when(() => repository.loginUser(any(), any()))
         .thenAnswer((invocation) async {
