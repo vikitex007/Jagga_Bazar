@@ -11,6 +11,7 @@ import '../../../../../core/error/failure.dart';
 
 class AuthRemoteRepository implements IAuthRepository{
   final AuthRemoteDataSource _authRemoteDataSource;
+
   AuthRemoteRepository (this._authRemoteDataSource);
 
 

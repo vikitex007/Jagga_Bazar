@@ -3,6 +3,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../app/constants/hive_table_constant.dart';
 import '../../features/auth/data/model/auth_hive_model.dart';
+import '../../features/post/data/model/post_hive_model.dart';
 
 class HiveService {
   static Future<void> init() async {
@@ -14,28 +15,37 @@ class HiveService {
 
     // Register Adapters
     // Hive.registerAdapter(CourseHiveModelAdapter());
-    // Hive.registerAdapter(BatchHiveModelAdapter());
+    Hive.registerAdapter(PostHiveModelAdapter());
     Hive.registerAdapter(AuthHiveModelAdapter());
   }
 
-  // // Batch Queries
-  // Future<void> addBatch(BatchHiveModel batch) async {
-  //   var box = await Hive.openBox<BatchHiveModel>(HiveTableConstant.batchBox);
-  //   await box.put(batch.batchId, batch);
-  // }
-  //
-  // Future<void> deleteBatch(String id) async {
-  //   var box = await Hive.openBox<BatchHiveModel>(HiveTableConstant.batchBox);
-  //   await box.delete(id);
-  // }
-  //
-  // Future<List<BatchHiveModel>> getAllBatches() async {
-  //   // Sort by BatchName
-  //   var box = await Hive.openBox<BatchHiveModel>(HiveTableConstant.batchBox);
-  //   return box.values.toList()
-  //     ..sort((a, b) => a.batchName.compareTo(b.batchName));
-  // }
-  //
+  //Post Queries
+  // Add a new Post
+  Future<void> addPost(PostHiveModel post) async {
+    var box = await Hive.openBox<PostHiveModel>(HiveTableConstant.postBox);
+    await box.put(post.postId, post);
+  }
+
+  // Delete a Post by ID
+  Future<void> deletePost(String id) async {
+    var box = await Hive.openBox<PostHiveModel>(HiveTableConstant.postBox);
+    await box.delete(id);
+  }
+
+  // Get all Posts, sorted by title
+  Future<List<PostHiveModel>> getAllPosts() async {
+    var box = await Hive.openBox<PostHiveModel>(HiveTableConstant.postBox);
+    return box.values.toList()
+      ..sort((a, b) => a.title.compareTo(b.title)); // Sorting by title
+  }
+
+
+
+
+
+
+
+
   // // Course Queries
   // Future<void> addCourse(CourseHiveModel course) async {
   //   var box = await Hive.openBox<CourseHiveModel>(HiveTableConstant.courseBox);
