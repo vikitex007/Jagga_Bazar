@@ -38,7 +38,7 @@ class _RegisterViewState extends State<RegisterView> {
   File? _img;
   Future _browseImage(ImageSource imageSource)async{
     try{
-      final image = await ImagePicker().pickImage(source: imageSource);
+       final image = await ImagePicker().pickImage(source: imageSource);
       if(image!=null){
         setState(() {
           _img =File(image.path);

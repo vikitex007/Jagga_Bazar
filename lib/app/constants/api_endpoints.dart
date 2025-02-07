@@ -17,6 +17,12 @@ class ApiEndpoints{
   // static const String updateStudent = "auth/updateStudent/";
   // static const String deleteStudent = "auth/deleteStudent/";
   //
+
+  //================================================Post Routes ===============
+  static const String createPost = "posts/createPost";
+  static const String getAllPosts = "posts/getAllPosts";
+  static const String deletePost = "posts/";  // Assuming
+
   static const String imageUrl = "http://10.0.2.2:3000/uploads/";
   static const String uploadImage = "auth/uploadImage";
 
