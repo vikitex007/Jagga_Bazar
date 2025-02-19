@@ -30,11 +30,14 @@ class HomeView extends StatelessWidget {
             },
           ),
 
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined,color: Colors.white,),
-            onPressed: () {
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.account_circle_outlined,color: Colors.white,),
+          //   onPressed: () {
+          //     //logic
+          //   },
+          // ),
+
+
           // Switch(
           //   value: _isDarkTheme,
           //   onChanged: (value) {
@@ -55,7 +58,7 @@ class HomeView extends StatelessWidget {
           return BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard),
+                icon: Icon(Icons.home),
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(

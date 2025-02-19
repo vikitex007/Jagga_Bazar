@@ -1,0 +1,2 @@
+C:/Users/razer/Desktop/Jagga_Bazar/jaggabazar/android/app/.cxx/Debug/npd3sm6g/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/razer/Desktop/Jagga_Bazar/jaggabazar/android/app/.cxx/Debug/npd3sm6g/arm64-v8a/CMakeFiles/rebuild_cache.dir

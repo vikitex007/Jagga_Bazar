@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure.dart';
 import '../entity/post_entity.dart';
@@ -14,4 +16,6 @@ abstract interface class IPostRepository {
 
   // Update an existing post
   Future<Either<Failure, void>> updatePost(PostEntity post);
+
+  Future<Either<Failure, String>> uploadPicture(File file);
 }

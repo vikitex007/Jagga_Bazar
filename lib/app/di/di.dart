@@ -22,6 +22,7 @@ import '../../features/post/data/repository/post_remote_repository.dart';
 import '../../features/post/domain/use_case/create_post_usecase.dart';
 import '../../features/post/domain/use_case/delete_post_usecase.dart';
 import '../../features/post/domain/use_case/get_all_post_usecase.dart';
+import '../../features/post/domain/use_case/upload_image_usecase.dart';
 import '../../features/post/presentation/view_model/post_bloc.dart';
 import '../../features/splash/presentation/view_model/splash_cubit.dart';
 
@@ -35,13 +36,16 @@ Future<void> initDependencies() async {
 
 
   await _initPostDependencies();
+  await _initDashboardDependencies();
   // await _initCourseDependencies();
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
 
+
   await _initSplashScreenDependencies();
 }
+
 
 Future <void> _initSharedPreferences() async {
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -59,6 +63,17 @@ _initApiService() {
         () => ApiService(Dio()).dio,
   );
 }
+
+
+//=============================Dashboard=========================
+_initDashboardDependencies() {
+
+}
+
+
+
+
+
 
 //============================POST==========================
 _initPostDependencies(){
@@ -105,6 +120,12 @@ _initPostDependencies(){
       tokenSharedPrefs: getIt<TokenSharedPrefs>(),
     ),
   );
+  getIt.registerLazySingleton<UploadImageUseCase>(
+          () =>
+          UploadImageUseCase(
+            getIt<PostRemoteRepository>(),
+          )
+  );
 
 // =========================== Bloc ===========================
 
@@ -114,6 +135,7 @@ _initPostDependencies(){
       createPostUseCase: getIt<CreatePostUseCase>(),
       getAllPostUseCase: getIt<GetAllPostUseCase>(),
       deletePostUseCase: getIt<DeletePostUseCase>(),
+          uploadImageUseCase:getIt<UploadImageUseCase>(),
     ),
   );
 

@@ -11,6 +11,7 @@ class CreatePostParams extends Equatable {
   final String description;
   final String price;
   final String? image;
+  final String location;
   final bool negotiable;
   final String postedBy;
   final String? createdAt;
@@ -19,6 +20,7 @@ class CreatePostParams extends Equatable {
     required this.title,
     required this.description,
     required this.price,
+    required this.location,
     this.image,
     this.negotiable = true,
     required this.postedBy,
@@ -30,13 +32,14 @@ class CreatePostParams extends Equatable {
       : title = '_empty.title',
         description = '_empty.description',
         price = '_empty.price',
+        location = '_empty.location',
         image = null,
         negotiable = true,
         postedBy = '_empty.postedBy',
         createdAt = null;
 
   @override
-  List<Object?> get props => [title, description, price, image, negotiable, postedBy,createdAt];
+  List<Object?> get props => [title, description, price,location, image, negotiable, postedBy,createdAt];
 }
 
 class CreatePostUseCase implements UsecaseWithParams<void, CreatePostParams> {
@@ -52,6 +55,7 @@ class CreatePostUseCase implements UsecaseWithParams<void, CreatePostParams> {
         description: params.description,
         price: params.price,
         image: params.image,
+        location: params.location,
         negotiable: params.negotiable,
         postedBy: params.postedBy,
         createdAt: "",

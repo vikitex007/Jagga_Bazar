@@ -4,11 +4,13 @@ class PostState extends Equatable {
   final List<PostEntity> posts;
   final bool isLoading;
   final String? error;
+  final String? imageName;
 
   const PostState({
     required this.posts,
     required this.isLoading,
     this.error,
+    this.imageName,
   });
 
   factory PostState.initial() {
@@ -23,11 +25,13 @@ class PostState extends Equatable {
     List<PostEntity>? posts,
     bool? isLoading,
     String? error,
+    String? imageName
   }) {
     return PostState(
       posts: posts ?? this.posts,
       isLoading: isLoading ?? this.isLoading,
       error: error,
+      imageName: imageName,
     );
   }
 
@@ -35,6 +39,7 @@ class PostState extends Equatable {
   List<Object?> get props => [
     posts,
     isLoading,
-    error ?? '', // If error is null, use an empty string as default
+    error ?? '',
+    imageName// If error is null, use an empty string as default
   ];
 }

@@ -27,15 +27,19 @@ class PostHiveModel extends Equatable {
   final bool negotiable;
 
   @HiveField(6)
-  final String postedBy;
+  final String location;
 
   @HiveField(7)
-  final String createdAt;
+  final String? postedBy;
+
+  @HiveField(8)
+  final String? createdAt;
 
   PostHiveModel({
     String? postId,
     required this.title,
     required this.description,
+    required this.location,
     required this.price,
     this.image,
     this.negotiable = true,
@@ -49,6 +53,7 @@ class PostHiveModel extends Equatable {
       : postId = '',
         title = '',
         description = '',
+        location = '',
         price = '',
         image = '',
         negotiable = true,
@@ -63,6 +68,7 @@ class PostHiveModel extends Equatable {
       description: entity.description,
       price: entity.price,
       image: entity.image,
+      location: entity.location,
       negotiable: entity.negotiable,
       postedBy: entity.postedBy,
       createdAt: entity.createdAt,
@@ -75,6 +81,7 @@ class PostHiveModel extends Equatable {
       id: postId,
       title: title,
       description: description,
+      location: location,
       price: price,
       image: image,
       negotiable: negotiable,
@@ -85,7 +92,7 @@ class PostHiveModel extends Equatable {
 
   @override
   List<Object?> get props =>
-      [postId, title, description, price, image, negotiable, postedBy, createdAt];
+      [postId, title, description, price, location,image, negotiable, postedBy, createdAt];
 
   // From Entity List
   static List<PostHiveModel> fromEntityList(List<PostEntity> entityList) {

@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import '../../domain/entity/post_entity.dart';
 
 abstract interface class IPostDataSource {
@@ -13,4 +15,5 @@ abstract interface class IPostDataSource {
 
   // Update an existing post
   Future<void> updatePost(PostEntity post);
+  Future<String> uploadPicture(File file);
 }

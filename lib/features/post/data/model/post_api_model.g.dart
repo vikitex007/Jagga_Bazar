@@ -12,9 +12,10 @@ PostApiModel _$PostApiModelFromJson(Map<String, dynamic> json) => PostApiModel(
       description: json['description'] as String,
       price: json['price'] as String,
       image: json['image'] as String?,
+      location: json['location'] as String,
       negotiable: json['negotiable'] as bool,
-      postedBy: json['postedBy'] as String,
-      createdAt: json['createdAt'] as String,
+      postedBy: json['postedBy'] as String?,
+      createdAt: json['createdAt'] as String?,
     );
 
 Map<String, dynamic> _$PostApiModelToJson(PostApiModel instance) =>
@@ -23,6 +24,7 @@ Map<String, dynamic> _$PostApiModelToJson(PostApiModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'price': instance.price,
+      'location': instance.location,
       'image': instance.image,
       'negotiable': instance.negotiable,
       'postedBy': instance.postedBy,
