@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/entity/post_entity.dart';
@@ -55,5 +57,18 @@ class PostRemoteRepository implements IPostRepository {
   Future<Either<Failure, void>> updatePost(PostEntity post) {
     // TODO: implement updatePost
     throw UnimplementedError();
+  }
+
+
+
+  @override
+  Future<Either<Failure, String>> uploadPicture(File file) async{
+    try{
+      final imageName = await remoteDataSource.uploadPicture(file);
+      return Right(imageName);
+    }catch(e){
+      return Left(ApiFailure(message: e.toString()));
+
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/entity/post_entity.dart';
@@ -51,5 +53,11 @@ class PostLocalRepository implements IPostRepository {
     } catch (e) {
       return Future.value(Left(LocalDatabaseFailure(message: e.toString())));
     }
+  }
+
+  @override
+  Future<Either<Failure, String>> uploadPicture(File file) {
+    // TODO: implement uploadProfilePicture
+    throw UnimplementedError();
   }
 }

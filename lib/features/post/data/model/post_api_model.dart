@@ -4,19 +4,18 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entity/post_entity.dart';
 
 part 'post_api_model.g.dart';
-
 @JsonSerializable()
 class PostApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? postId;
-
   final String title;
   final String description;
   final String price;
+  final String location;
   final String? image;
   final bool negotiable;
-  final String postedBy;
-  final String createdAt;
+  final String ?  postedBy;
+  final String ? createdAt;
 
   const PostApiModel({
     this.postId,
@@ -24,42 +23,46 @@ class PostApiModel extends Equatable {
     required this.description,
     required this.price,
     this.image,
+    required this.location,
     required this.negotiable,
     required this.postedBy,
     required this.createdAt,
   });
 
   const PostApiModel.empty()
-      : postId = '',
+      : postId = null,
         title = '',
         description = '',
         price = '',
         image = null,
+        location = '',
         negotiable = true,
         postedBy = '',
         createdAt = '';
 
-  // From Json (manually written)
+  // From JSON (manually written)
   factory PostApiModel.fromJson(Map<String, dynamic> json) {
     return PostApiModel(
-      postId: json['_id'],
-      title: json['title'],
-      description: json['description'],
-      price: json['price'],
-      image: json['image'],
-      negotiable: json['negotiable'],
-      postedBy: json['postedBy'],
-      createdAt: json['createdAt'],
+      postId: json['_id'] as String?,
+      title: json['title'] as String? ?? '', // Handle null values by providing a default empty string
+      location: json['location'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      price: json['price'] as String? ?? '',
+      image: json['image'] as String? ?? '',
+      negotiable: json['negotiable'] as bool? ?? true, // Default to true if null
+      postedBy: json['postedBy'] as String? ?? '', // Default to empty string if null
+      createdAt: json['createdAt'] as String? ?? '', // Default to empty string if null
     );
   }
 
-  // To Json (manually written)
+  // To JSON (manually written)
   Map<String, dynamic> toJson() {
     return {
       '_id': postId,
       'title': title,
       'description': description,
       'price': price,
+      'location': location,
       'image': image,
       'negotiable': negotiable,
       'postedBy': postedBy,
@@ -74,6 +77,7 @@ class PostApiModel extends Equatable {
     description: description,
     price: price,
     image: image,
+    location: location,
     negotiable: negotiable,
     postedBy: postedBy,
     createdAt: createdAt,
@@ -84,6 +88,7 @@ class PostApiModel extends Equatable {
     postId: entity.id,
     title: entity.title,
     description: entity.description,
+    location: entity.location,
     price: entity.price,
     image: entity.image,
     negotiable: entity.negotiable,
@@ -100,6 +105,7 @@ class PostApiModel extends Equatable {
     postId,
     title,
     description,
+    location,
     price,
     image,
     negotiable,

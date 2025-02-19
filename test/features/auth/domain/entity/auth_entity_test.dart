@@ -43,50 +43,84 @@ void main() {
     password: "amit123",
   );
 
-  test('Test 1: AuthEntity objects with identical values should be equal', () {
-    expect(auth1, auth2); // Same values
+  group('AuthEntity Equality Tests', () {
+    test('Test 1: AuthEntity objects with identical values should be equal', () {
+      expect(auth1, auth2); // Same values
+    });
+
+    test('Test 2: AuthEntity objects with different values should not be equal', () {
+      expect(auth1 == auth3, isFalse); // Different values
+    });
+
+    test('Test 3: Same username cannot exist for multiple AuthEntity objects', () {
+      usernameExists(String username) {
+        return username == auth1.username;
+      }
+
+      final isDuplicate = usernameExists(authDuplicate.username);
+      expect(isDuplicate, isTrue); // Duplicate username
+    });
+
+    test('Test 4: Two different AuthEntity objects with the same values should be equal', () {
+      final authWithSameValues = const AuthEntity(
+        userId: "2343423123124",
+        location: "Matatirtha",
+        fullName: "Sachin Shrestha",
+        image: "image_url",
+        phone: "98010119909",
+        username: "sachin",
+        password: "sachin123",
+      );
+      expect(auth1 == authWithSameValues, isTrue); // Should be equal
+    });
+
+    test('Test 5: Same username cannot exist for multiple AuthEntity objects', () {
+      usernameExists(String username) {
+        return username == auth1.username;
+      }
+
+      final isDuplicate = usernameExists(authDuplicate.username);
+      expect(isDuplicate, isTrue); // Duplicate username found
+    });
   });
 
-  test('Test 2: AuthEntity objects with different values should not be equal', () {
-    expect(auth1 == auth3, isFalse); // Different values
-  });
+  group('AuthEntity Validation Tests', () {
+    test('Test 6: AuthEntity with unique username should be valid', () {
+      final isUnique = auth1.username != auth3.username;
+      expect(isUnique, isTrue); // Unique username
+    });
 
-  test('Test 3: Same username cannot exist for multiple AuthEntity objects', () {
-    // Simulate a repository or service check that verifies unique usernames
-    usernameExists(String username) {
-      // Simulating an existing username check
-      return username == auth1.username;
-    }
+    test('Test 7: AuthEntity should maintain all values correctly', () {
+      expect(auth1.userId, "2343423123124");
+      expect(auth1.location, "Matatirtha");
+      expect(auth1.fullName, "Sachin Shrestha");
+      expect(auth1.image, "image_url");
+      expect(auth1.phone, "98010119909");
+      expect(auth1.username, "sachin");
+      expect(auth1.password, "sachin123");
+    });
 
-    final isDuplicate = usernameExists(authDuplicate.username);
+    test('Test 8: AuthEntity should not be equal if any property is different', () {
+    final modifiedAuth = AuthEntity(
+    userId: auth1.userId,
+    location: auth1.location,
+    fullName: auth1.fullName,
+    image: auth1.image,
+    phone: "1234567890", // Changed phone number
+    username: auth1.username,
+    password: auth1.password,
+  );
 
-    // Assert that the duplicate username is not allowed
-    expect(isDuplicate, isTrue);
-  });
+  expect(auth1 == modifiedAuth, isFalse); // Different phone
+});
 
+    
+    test('Test 9: AuthEntity objects with different usernames should not be equal', () {
+      expect(auth1.username == auth3.username, isFalse); // Different usernames
+    });
 
-  test('Test 4: Two different AuthEntity objects with the same values should be equal', () {
-    final authWithSameValues = const AuthEntity(
-      userId: "2343423123124",
-      location: "Matatirtha",
-      fullName: "Sachin Shrestha",
-      image: "image_url",
-      phone: "98010119909",
-      username: "sachin",
-      password: "sachin123",
-    );
-    expect(auth1 == authWithSameValues, isTrue);
-  });
-  test('Test 5: Same username cannot exist for multiple AuthEntity objects', () {
-    // Simulate a repository or service check that verifies unique usernames
-    usernameExists(String username) {
-      // Simulating an existing username check
-      return username == auth1.username;
-    }
-
-    final isDuplicate = usernameExists(authDuplicate.username);
-
-    // Assert that the duplicate username is not allowed
-    expect(isDuplicate, isTrue);
+    test('Test 10: AuthEntity objects should have the same password if unchanged', () {
+      expect(auth1.password, "sachin123"); // Same password as the original auth1
+    });
   });
 }

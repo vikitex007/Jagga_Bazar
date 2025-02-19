@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import '../../../../../core/network/hive_service.dart';
 import '../../../domain/entity/post_entity.dart';
 import '../../model/post_hive_model.dart';
@@ -45,6 +47,12 @@ class PostLocalDataSource implements IPostDataSource {
   @override
   Future<void> updatePost(PostEntity post) {
     // TODO: implement updatePost
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> uploadPicture(File file) {
+    // TODO: implement uploadPicture
     throw UnimplementedError();
   }
 

@@ -20,18 +20,19 @@ class PostHiveModelAdapter extends TypeAdapter<PostHiveModel> {
       postId: fields[0] as String?,
       title: fields[1] as String,
       description: fields[2] as String,
+      location: fields[6] as String,
       price: fields[3] as String,
       image: fields[4] as String?,
       negotiable: fields[5] as bool,
-      postedBy: fields[6] as String,
-      createdAt: fields[7] as String?,
+      postedBy: fields[7] as String?,
+      createdAt: fields[8] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, PostHiveModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.postId)
       ..writeByte(1)
@@ -45,8 +46,10 @@ class PostHiveModelAdapter extends TypeAdapter<PostHiveModel> {
       ..writeByte(5)
       ..write(obj.negotiable)
       ..writeByte(6)
-      ..write(obj.postedBy)
+      ..write(obj.location)
       ..writeByte(7)
+      ..write(obj.postedBy)
+      ..writeByte(8)
       ..write(obj.createdAt);
   }
 
