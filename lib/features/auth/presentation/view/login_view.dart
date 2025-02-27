@@ -37,9 +37,18 @@ class LoginView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 40.0),
               child: SingleChildScrollView(
-                child: Column(
+                child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Logo
+                    Image.asset(
+                      'assets/images/splash.png',  // ✅ Replace with your logo path
+                      height: 120,  // Adjust size as needed
+                      width: 120,
+                    ),
+                    const SizedBox(height: 20), // Add spacing
+
+                    // Welcome Text
                     const Text(
                       'Welcome To Jagga Bazar',
                       style: TextStyle(
@@ -47,7 +56,10 @@ class LoginView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
+                      textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 40.0),
+
                     const SizedBox(height: 40.0),
 
                     // Login Form
@@ -75,7 +87,7 @@ class LoginView extends StatelessWidget {
                             style: const TextStyle(color: Colors.white),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
+                                return 'Please enter your username';
                               }
                               return null;
                             },
@@ -171,40 +183,40 @@ class LoginView extends StatelessWidget {
                     const SizedBox(height: 30.0),
 
                     // Divider with Text
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: Colors.white54,
-                            thickness: 1,
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            'Or Login with',
-                            style: TextStyle(color: Colors.white54),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Colors.white54,
-                            thickness: 1,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: Colors.white54,
+                    //         thickness: 1,
+                    //       ),
+                    //     ),
+                    //     const Padding(
+                    //       padding: EdgeInsets.symmetric(horizontal: 10),
+                    //       child: Text(
+                    //         'Or Login with',
+                    //         style: TextStyle(color: Colors.white54),
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: Colors.white54,
+                    //         thickness: 1,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     const SizedBox(height: 20.0),
 
                     // Social Login Buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _socialLoginButton(Icons.login, 'Google', Colors.red, () {}),
-                        _socialLoginButton(Icons.apple, 'Apple', Colors.black, () {}),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     _socialLoginButton(Icons.login, 'Google', Colors.red, () {}),
+                    //     _socialLoginButton(Icons.apple, 'Apple', Colors.black, () {}),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -215,15 +227,15 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Widget _socialLoginButton(IconData icon, String label, Color color, VoidCallback onTap) {
-    return ElevatedButton.icon(
-      onPressed: onTap,
-      icon: Icon(icon, color: Colors.white),
-      label: Text(label, style: const TextStyle(color: Colors.white)),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+  // Widget _socialLoginButton(IconData icon, String label, Color color, VoidCallback onTap) {
+  //   return ElevatedButton.icon(
+  //     onPressed: onTap,
+  //     icon: Icon(icon, color: Colors.white),
+  //     label: Text(label, style: const TextStyle(color: Colors.white)),
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: color,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  //     ),
+  //   );
+  // }
 }

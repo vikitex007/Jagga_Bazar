@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:jagga_bazar/app/shared_prefs/token_shared_prefs.dart';
 import 'package:jagga_bazar/features/auth/data/data_source/remote_datasource/auth_remote_datasource.dart';
 import 'package:jagga_bazar/features/auth/domain/use_case/upload_image_usecase.dart';
+import 'package:jagga_bazar/features/favourite/presentation/view_model/favourite_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/network/api_service.dart';
@@ -35,9 +36,11 @@ Future<void> initDependencies() async {
   await _initSharedPreferences();
 
 
+
+   _initFavouriteDependencies();
+
   await _initPostDependencies();
   await _initDashboardDependencies();
-  // await _initCourseDependencies();
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
@@ -73,6 +76,12 @@ _initDashboardDependencies() {
 
 
 
+//===========================favourite=================================
+void _initFavouriteDependencies() {
+  getIt.registerFactory<FavouriteBloc>(
+        () => FavouriteBloc(), // ✅ Corrected: Use `registerFactory`
+  );
+}
 
 
 //============================POST==========================
@@ -203,12 +212,10 @@ _initPostDependencies(){
   );
 }
 
-
-_initHomeDependencies() async {
-  getIt.registerFactory<HomeCubit>(
-        () => HomeCubit(),
-  );
+ _initHomeDependencies() async {
+  getIt.registerFactory<HomeCubit>(() => HomeCubit());
 }
+
 
 _initLoginDependencies() async {
   //==========================Token Shared preferences===========================

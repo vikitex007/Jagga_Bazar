@@ -33,3 +33,19 @@ class RegisterUser extends RegisterEvent {
     this.image,
   });
 }
+// class UpdateProfile extends RegisterEvent {
+//   final String userId;
+//   final String newUsername;
+//   final String newPassword;
+//   final BuildContext context;
+//
+//   const UpdateProfile({
+//     required this.userId,
+//     required this.newUsername,
+//     required this.newPassword,
+//     required this.context,
+//   });
+//
+//   @override
+//   List<Object> get props => [userId, newUsername, newPassword];
+// }
