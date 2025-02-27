@@ -49,7 +49,7 @@ class PostApiModel extends Equatable {
       description: json['description'] as String? ?? '',
       price: json['price'] as String? ?? '',
       image: json['image'] as String? ?? '',
-      negotiable: json['negotiable'] as bool? ?? true, // Default to true if null
+      negotiable: json['negotiable'] as bool? ?? false, // Default to false if null
       postedBy: json['postedBy'] as String? ?? '', // Default to empty string if null
       createdAt: json['createdAt'] as String? ?? '', // Default to empty string if null
     );

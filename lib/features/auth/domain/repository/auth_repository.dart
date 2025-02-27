@@ -16,4 +16,6 @@ abstract interface class IAuthRepository {
   Future<Either<Failure, String>> uploadProfilePicture(File file);
 
   Future<Either<Failure, AuthEntity>> getCurrentUser();
+
+  // Future<Either<Failure, AuthEntity>> updateProfile(String userId, String newUsername, String newPassword);
 }

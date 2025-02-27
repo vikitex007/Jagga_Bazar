@@ -52,5 +52,11 @@ class AuthLocalRepository implements IAuthRepository {
     throw UnimplementedError();
   }
 
+  @override
+  Future<Either<Failure, AuthEntity>> updateProfile(String userId, String newUsername, String newPassword) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
+
 
 }
