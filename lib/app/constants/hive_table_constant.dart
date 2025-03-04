@@ -6,4 +6,7 @@ class HiveTableConstant{
 
   static const int postTableId = 1;
   static const String postBox = 'postBox';
+
+  static const int favouritePostTableId = 2;
+  static const String favouritePostBox = 'favouritePostBox';
 }

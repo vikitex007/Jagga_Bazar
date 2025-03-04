@@ -1,30 +1,15 @@
-import 'package:equatable/equatable.dart';
-import 'package:jagga_bazar/features/post/domain/entity/post_entity.dart';
+import '../../domain/entity/favourite_post_entity.dart';
 
-abstract class FavouriteEvent extends Equatable {
-  const FavouriteEvent();
+abstract class FavouriteEvent {}
 
-  @override
-  List<Object?> get props => [];
-}
-
-// Event to Add a Favourite
-class AddToFavourites extends FavouriteEvent {
-  final PostEntity post;
-  const AddToFavourites(this.post);
-
-  @override
-  List<Object?> get props => [post];
-}
-
-// Event to Remove a Favourite
-class RemoveFromFavourites extends FavouriteEvent {
-  final PostEntity post;
-  const RemoveFromFavourites(this.post);
-
-  @override
-  List<Object?> get props => [post];
-}
-
-// Event to Load Favourites
 class LoadFavourites extends FavouriteEvent {}
+
+class AddPostToFavourites extends FavouriteEvent {
+  final FavouritePostEntity post;
+  AddPostToFavourites(this.post);
+}
+
+class RemovePostFromFavourites extends FavouriteEvent {
+  final String postId;
+  RemovePostFromFavourites(this.postId);
+}

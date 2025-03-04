@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jagga_bazar/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:jagga_bazar/features/favourite/presentation/view/favourite_page.dart';
 import 'package:jagga_bazar/features/post/presentation/view/post_view.dart';
+import 'package:jagga_bazar/features/profile/presentation/view/Profile_view.dart';
 import '../../../../app/di/di.dart';
 import '../../../favourite/presentation/view_model/favourite_bloc.dart';
 import '../../../post/presentation/view_model/post_bloc.dart';
@@ -30,12 +31,11 @@ class HomeState extends Equatable {
           create: (context) => getIt<PostBloc>(), // ✅ Correct way
           child: const PostView(),
         ),
+        const FavouritePage(),
+
         BlocProvider(
-          create: (context) => getIt<FavouriteBloc>(), // ✅ Fixes FavouriteBloc issue
-          child: const FavouritePage(),
-        ),
-        const Center(
-          child: Text('Account'),
+          create: (context) => getIt<PostBloc>(), // ✅ Correct way
+          child: const ProfileView(),
         ),
       ],
     );
