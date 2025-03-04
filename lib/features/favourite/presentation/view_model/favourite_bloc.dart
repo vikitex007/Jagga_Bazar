@@ -1,28 +1,56 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../domain/use_case/add_to_favourite.dart';
+import '../../domain/use_case/get_favourite.dart';
+import '../../domain/use_case/remove_from_favourite.dart';
 import 'favourite_event.dart';
 import 'favourite_state.dart';
 
 class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
-  FavouriteBloc() : super(const FavouriteState(favouritePosts: [], isLoading: false)) {
-    on<AddToFavourites>(_onAddToFavourites);
-    on<RemoveFromFavourites>(_onRemoveFromFavourites);
+  final GetFavouritePosts getFavourites;
+  final AddToFavourite addToFavourite;
+  final RemoveFromFavourite removeFromFavourite;
+
+  FavouriteBloc({
+
+    required this.getFavourites,
+    required this.addToFavourite,
+    required this.removeFromFavourite,
+  }) : super(FavouriteLoading()) {
+    print('🚀 FavouriteBloc created');
     on<LoadFavourites>(_onLoadFavourites);
+    on<AddPostToFavourites>(_onAddToFavourites);
+    on<RemovePostFromFavourites>(_onRemoveFromFavourites);
   }
 
-  void _onAddToFavourites(AddToFavourites event, Emitter<FavouriteState> emit) {
-    if (!state.favouritePosts.contains(event.post)) {
-      emit(FavouriteState(favouritePosts: [...state.favouritePosts, event.post], isLoading: true));
+  Future<void> _onLoadFavourites(
+      LoadFavourites event,
+      Emitter<FavouriteState> emit,
+      ) async {
+    print('📥 LoadFavourites event received in Bloc');
+    emit(FavouriteLoading());
+    print('⏳ Fetching favourite posts from Hive...');
+    try {
+      final favourites = await getFavourites();
+      print('✅ Favourites fetched: ${favourites.length}');
+      emit(FavouriteLoaded(favourites));
+      print('🚀 Emitted FavouriteLoaded');
+    } catch (e, stackTrace) {
+      print('❌ Error fetching favourites: $e');
+      print(stackTrace);
+      emit(FavouriteError());
     }
   }
 
-  void _onRemoveFromFavourites(RemoveFromFavourites event, Emitter<FavouriteState> emit) {
-    emit(FavouriteState(
-      favouritePosts: state.favouritePosts.where((p) => p.id != event.post.id).toList(), isLoading: true,
-    ));
+
+
+
+  Future<void> _onAddToFavourites(AddPostToFavourites event, Emitter<FavouriteState> emit) async {
+    await addToFavourite(event.post);
+    add(LoadFavourites());
   }
 
-  void _onLoadFavourites(LoadFavourites event, Emitter<FavouriteState> emit) {
-    // Here you can fetch favourites from local storage if needed
-    emit(state);
+  Future<void> _onRemoveFromFavourites(RemovePostFromFavourites event, Emitter<FavouriteState> emit) async {
+    await removeFromFavourite(event.postId);
+    add(LoadFavourites());
   }
 }

@@ -66,21 +66,21 @@ class _HomeViewState extends State<HomeView> {
     );
   }
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return Text(_getAppBarTitle(state.selectedIndex));
+          },
+        ),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () => _confirmLogout(context),
           ),
-          // Switch(
-          //   value: _isDarkTheme,
-          //   onChanged: _toggleTheme,
-          //   activeColor: Colors.white,
-          // ),
         ],
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
@@ -108,4 +108,21 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+// Function to Get Dynamic AppBar Title
+  String _getAppBarTitle(int index) {
+    switch (index) {
+      case 0:
+        return "Dashboard";
+      case 1:
+        return "Add Post";
+      case 2:
+        return "Favourite";
+      case 3:
+        return "Profile";
+      default:
+        return "Home";
+    }
+  }
+
 }

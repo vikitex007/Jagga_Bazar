@@ -1,12 +1,12 @@
-import 'package:equatable/equatable.dart';
-import 'package:jagga_bazar/features/post/domain/entity/post_entity.dart';
+import '../../domain/entity/favourite_post_entity.dart';
 
-class FavouriteState extends Equatable {
-  final List<PostEntity> favouritePosts;
-  final bool isLoading;
+abstract class FavouriteState {}
 
-  const FavouriteState({required this.favouritePosts, required this.isLoading,});
+class FavouriteLoading extends FavouriteState {}
 
-  @override
-  List<Object> get props => [favouritePosts,isLoading];
+class FavouriteLoaded extends FavouriteState {
+  final List<FavouritePostEntity> favourites;
+  FavouriteLoaded(this.favourites);
 }
+
+class FavouriteError extends FavouriteState {}

@@ -15,6 +15,11 @@ import '../../features/auth/domain/use_case/login_usecase.dart';
 import '../../features/auth/domain/use_case/register_usecase.dart';
 import '../../features/auth/presentation/view_model/login/login_bloc.dart';
 import '../../features/auth/presentation/view_model/register/register_bloc.dart';
+import '../../features/favourite/data/repository/fav_repo.dart';
+import '../../features/favourite/domain/repository/favourite_repository.dart';
+import '../../features/favourite/domain/use_case/add_to_favourite.dart';
+import '../../features/favourite/domain/use_case/get_favourite.dart';
+import '../../features/favourite/domain/use_case/remove_from_favourite.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/post/data/data_source/localdatasource/post_local_datasource.dart';
 import '../../features/post/data/data_source/remotedatasource/post_remote_datasource.dart';
@@ -78,8 +83,28 @@ _initDashboardDependencies() {
 
 //===========================favourite=================================
 void _initFavouriteDependencies() {
+  getIt.registerLazySingleton<FavouriteRepository>(
+        () => FavouriteRepositoryImpl(getIt<HiveService>()),
+  );
+
+  getIt.registerLazySingleton<GetFavouritePosts>(
+        () => GetFavouritePosts(getIt<FavouriteRepository>()),
+  );
+
+  getIt.registerLazySingleton<AddToFavourite>(
+        () => AddToFavourite(getIt<FavouriteRepository>()),
+  );
+
+  getIt.registerLazySingleton<RemoveFromFavourite>(
+        () => RemoveFromFavourite(getIt<FavouriteRepository>()),
+  );
+
   getIt.registerFactory<FavouriteBloc>(
-        () => FavouriteBloc(), // ✅ Corrected: Use `registerFactory`
+        () => FavouriteBloc(
+      getFavourites: getIt<GetFavouritePosts>(),
+      addToFavourite: getIt<AddToFavourite>(),
+      removeFromFavourite: getIt<RemoveFromFavourite>(),
+    ),
   );
 }
 
