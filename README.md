@@ -1,7 +1,16 @@
 # jaggabazar
+Jagga Bazar is a real estate platform built using Flutter,
+where users can buy, sell, and rent properties, including houses, apartments, and land. 
+The app allows users to browse property listings, view details, and post their own properties for sale or rent.
 
+🚀 Features:
+✅ Buy, sell, and rent properties
+✅ View detailed property listings with images
+✅ Add properties to favorites
+✅ Secure user authentication
+✅ Clean Architecture with BLoC State Management
 
-A new Flutter project.
+🔗 Tech Stack: Flutter, Dart, Firebase, Node.js, MongoDB
 
 ## Getting Started
 
@@ -21,3 +30,9 @@ samples, guidance on mobile development, and a full API reference.
 ![Screenshot_20241213_132627.png](assets/screenshot/Login.png)
 ![Screenshot_20241213_132638.png](assets/screenshot/Register.png)
 ![Screenshot_20241213_132638.png](assets/screenshot/permission.png)
+![Screenshot_20241213_132638.png](assets/screenshot/Dashboard.png)
+![Screenshot_20241213_132638.png](assets/screenshot/add_post.png)
+![Screenshot_20241213_132638.png](assets/screenshot/Detail_page.png)
+![Screenshot_20241213_132638.png](assets/screenshot/Favourite.png)
+![Screenshot_20241213_132638.png](assets/screenshot/profile.png)
+![Screenshot_20241213_132638.png](assets/screenshot/Logout.png)
