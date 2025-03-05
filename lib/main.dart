@@ -15,6 +15,7 @@
 //
 // }
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'app/app.dart';
 import 'app/di/di.dart';
 import 'core/network/hive_service.dart';
@@ -25,6 +26,12 @@ import 'features/favourite/presentation/view_model/favourite_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //   [
+  //     DeviceOrientation.portraitUp,
+  //     DeviceOrientation.portraitDown,
+  //   ],
+  // );
   await HiveService.init();
   await initDependencies();
 

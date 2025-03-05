@@ -117,4 +117,56 @@ class AuthRemoteDataSource implements IAuthDataSource {
 
     }
   }
+
+
+  // @override
+  // Future<AuthEntity> getProfile() async {
+  //   try {
+  //     final response = await _dio.get(ApiEndpoints.getProfile);  // Adjust endpoint if needed
+  //
+  //     if (response.statusCode == 200) {
+  //       // Assuming response.data contains the user profile data directly
+  //       final apiModel = AuthApiModel.fromJson(response.data);
+  //       return apiModel.toEntity();  // Convert API model to domain entity
+  //     } else {
+  //       throw Exception(response.statusMessage);
+  //     }
+  //   } on DioException catch (e) {
+  //     throw Exception('Failed to fetch profile: ${e.message}');
+  //   } catch (e) {
+  //     throw Exception('Unexpected error: ${e.toString()}');
+  //   }
+  // }
+
+  Future<AuthEntity> updateProfile(AuthEntity user) async {
+    try {
+      final response = await _dio.put(
+        '${ApiEndpoints.updateUser}/${user.userId}',
+        data: {
+          "fullName": user.fullName,
+          "image": user.image,
+          "phone": user.phone,
+          "location": user.location,
+          "username": user.username,
+          "password": user.password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return AuthApiModel.fromJson(response.data['data']).toEntity();
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<AuthEntity> getProfile() {
+    // TODO: implement getProfile
+    throw UnimplementedError();
+  }
+
+
 }

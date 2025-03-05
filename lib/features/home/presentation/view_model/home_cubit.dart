@@ -20,7 +20,9 @@ class HomeCubit extends Cubit<HomeState> {
 
     // Show logout message
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Logging out...')),
+      const SnackBar(content: Text('Logging out...'),
+        backgroundColor: Colors.red,
+      ),
     );
 
     Future.delayed(const Duration(seconds: 2), () {

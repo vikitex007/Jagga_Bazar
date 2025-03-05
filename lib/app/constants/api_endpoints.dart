@@ -10,7 +10,10 @@ class ApiEndpoints {
   //==========================================  Auth Routes ======================
   static const String login = "/auth/login";
   static const String register = "/auth/register";
-  static const String updateUser = "/users";
+  static const String updateUser = "users";
+  //========================================== Profile Routes ======================
+  // static const String getProfile = "/auth/users";  // Update this based on your actual backend
+
 
   //================================================ Post Routes ===============
   static const String createPost = "post/createPost";

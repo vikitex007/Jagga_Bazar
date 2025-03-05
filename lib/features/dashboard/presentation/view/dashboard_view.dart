@@ -8,6 +8,8 @@ import '../../../favourite/presentation/view_model/favourite_bloc.dart';
 import '../../../favourite/presentation/view_model/favourite_event.dart';
 import '../../../post/presentation/view_model/post_bloc.dart';
 
+
+
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 
@@ -32,22 +34,36 @@ class DashboardView extends StatelessWidget {
             return const Center(child: Text("No posts available."));
           }
 
+          final screenWidth = MediaQuery.of(context).size.width;
+
+          // Dynamically determine number of columns based on screen width
+          int crossAxisCount = 2; // Default for phones
+          if (screenWidth > 1200) {
+            crossAxisCount = 4; // Large tablets/laptops
+          } else if (screenWidth > 800) {
+            crossAxisCount = 3; // Smaller tablets
+          }
+
+          // Calculate aspect ratio dynamically (adjust this if needed)
+          final cardWidth = screenWidth / crossAxisCount - 16;
+          const cardHeight = 240; // Fixed height for cards
+          final childAspectRatio = cardWidth / cardHeight;
+
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
               itemCount: state.posts.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
-                childAspectRatio: 0.8,
+                childAspectRatio: childAspectRatio,
               ),
               itemBuilder: (context, index) {
                 final PostEntity post = state.posts[index];
 
                 return GestureDetector(
                   onTap: () {
-                    // Navigate to Post Details Page
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -97,23 +113,28 @@ class DashboardView extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
-                                Flexible(
-                                  child: Text(
-                                    post.description,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
                               ],
                             ),
                           ),
                         ),
-
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PostDetailView(post: post),
+                                  ),
+                                );
+                                print("View Details button clicked for ${post.title}");
+                              },
+                              child: const Text('View Details'),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -126,6 +147,7 @@ class DashboardView extends StatelessWidget {
     );
   }
 }
+
 //
 // class PostDetailView extends StatelessWidget {
 //   final PostEntity post;
@@ -239,23 +261,22 @@ class DashboardView extends StatelessWidget {
 // }
 
 
-
 class PostDetailView extends StatelessWidget {
   final PostEntity post;
-  final bool isFromFavourite; // <-- New flag
+  final bool isFromFavourite; // Indicates if we arrived from Favourites page
 
   const PostDetailView({
     super.key,
     required this.post,
-    this.isFromFavourite = false, // Defaults to false for dashboard flow
+    this.isFromFavourite = false,
   });
 
   /// Constructs the full URL to fetch images from the backend using only the filename.
   String getImageUrl(String? imageName) {
     if (imageName == null || imageName.isEmpty) {
-      return "${ApiEndpoints.imageUrl}default_placeholder.png"; // Default placeholder image
+      return "${ApiEndpoints.imageUrl}default_placeholder.png"; // Fallback image
     }
-    return "${ApiEndpoints.imageUrl}$imageName"; // Construct full image URL
+    return "${ApiEndpoints.imageUrl}$imageName";
   }
 
   @override
@@ -264,111 +285,135 @@ class PostDetailView extends StatelessWidget {
       appBar: AppBar(title: Text(post.title)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                getImageUrl(post.image),
-                fit: BoxFit.cover,
+        child: SingleChildScrollView( // Added to prevent overflow in smaller screens
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image section
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  getImageUrl(post.image),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 200,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/background1.png',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 200,
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Post Title
+              Text(
+                post.title,
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+
+              // Description
+              Text(
+                post.description,
+                style: const TextStyle(fontSize: 16, color: Colors.black87),
+              ),
+              const SizedBox(height: 8),
+
+              // Price
+              Text(
+                'Price: Rs ${post.price}',
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+
+              // Location
+              Row(
+                children: [
+                  const Icon(Icons.location_on, color: Colors.blue),
+                  const SizedBox(width: 6),
+                  Text(
+                    post.location,
+                    style: const TextStyle(fontSize: 16, color: Colors.black87),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+
+              // Negotiable
+              Text(
+                post.negotiable ? "Negotiable: Yes" : "Negotiable: No",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: post.negotiable ? Colors.green : Colors.red,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Spacer removed (not ideal inside ScrollView)
+
+              // Favourite Button
+              SizedBox(
                 width: double.infinity,
-                height: 200,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/images/background1.png',
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 200,
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              post.title,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              post.description,
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '\$${post.price}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Location: ${post.location}",
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              post.negotiable ? "Negotiable: Yes" : "Negotiable: No",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: post.negotiable ? Colors.green : Colors.red,
-              ),
-            ),
-            const Spacer(),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (isFromFavourite) {
+                      // Remove from Favourites
+                      context.read<FavouriteBloc>().add(RemovePostFromFavourites(post.id ?? ''));
 
-            // Show either Add or Remove button based on `isFromFavourite`
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (isFromFavourite) {
-                    context.read<FavouriteBloc>().add(RemovePostFromFavourites(post.id ?? ''));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Removed from Favourites!"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Removed from Favourites!"),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                      // Go back to refresh the favourite list
+                      Navigator.pop(context);
+                    } else {
+                      // Add to Favourites
+                      final favouritePost = FavouritePostEntity(
+                        id: post.id ?? '',
+                        title: post.title,
+                        description: post.description,
+                        price: post.price,
+                        location: post.location,
+                        image: post.image,
+                        negotiable: post.negotiable,
+                      );
 
-                    Navigator.pop(context);  // Go back after removal to refresh the list
-                  } else {
-                    final favouritePost = FavouritePostEntity(
-                      id: post.id ?? '',
-                      title: post.title,
-                      description: post.description,
-                      price: post.price,
-                      location: post.location,
-                      image: post.image,
-                      negotiable: post.negotiable,
-                    );
+                      context.read<FavouriteBloc>().add(AddPostToFavourites(favouritePost));
 
-                    context.read<FavouriteBloc>().add(AddPostToFavourites(favouritePost));
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Added to Favourites!"),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Added to Favourites!"),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    isFromFavourite ? "Remove from Favourites" : "Add to Favourites",
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
-                child: Text(
-                  isFromFavourite ? "Remove from Favourite" : "Add to Favourite",
-                  style: const TextStyle(fontSize: 16),
-                ),
               ),
-            )
-
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
 

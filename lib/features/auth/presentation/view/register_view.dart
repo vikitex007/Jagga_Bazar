@@ -211,7 +211,7 @@ class _RegisterViewState extends State<RegisterView> {
                             controller: _location,
                             label: 'Location',
                             hint: 'Enter your Location',
-                            keyboardType: TextInputType.phone,
+                            keyboardType: TextInputType.text,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your Location';

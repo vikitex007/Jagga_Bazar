@@ -15,6 +15,9 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   dio: ^5.7.0
+#  proximity_sensor: ^1.0.5
+#  brightness: ^1.0.1
+  sensors_plus: ^3.0.3
   hive_flutter: ^1.1.0
   pretty_dio_logger: ^1.4.0
   shared_preferences: ^2.3.4

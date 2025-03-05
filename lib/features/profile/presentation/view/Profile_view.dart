@@ -1,10 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../home/presentation/view_model/home_cubit.dart';
 
 
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
+
+  void _confirmLogout(BuildContext context) {
+    final homeCubit = context.read<HomeCubit>(); // Safe access
+    print("Confirm Logout Dialog Shown"); // ✅ Debug
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Logout'),
+        content: const Text('Are you sure you want to log out?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              print("Logout cancelled"); // ✅ Debug
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              print("Logout confirmed"); // ✅ Debug
+              Navigator.of(context).pop();
+              homeCubit.logout(context);
+            },
+            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,35 +78,35 @@ class ProfileView extends StatelessWidget {
             leading: const Icon(Icons.location_on, color: Colors.blue),
             title: const Text('Kalanki kathmandu'),
           ),
-          ListTile(
-            leading: const Icon(Icons.calendar_today, color: Colors.blue),
-            title: const Text('Joined: January 2025'),
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.calendar_today, color: Colors.blue),
+          //   title: const Text('Joined: January 2025'),
+          // ),
 
           const SizedBox(height: 20),
 
           // Edit Profile Button
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditProfileView()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Text(
-                'Edit Profile',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
+            // child: ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const EditProfileView()),
+            //     );
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Colors.blue,
+            //     padding: const EdgeInsets.symmetric(vertical: 12),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //   ),
+            //   child: const Text(
+            //     'Edit Profile',
+            //     style: TextStyle(fontSize: 18, color: Colors.white),
+            //   ),
+            // ),
           ),
 
           const SizedBox(height: 10),
@@ -83,7 +116,7 @@ class ProfileView extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Handle logout
+                _confirmLogout(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -124,10 +157,10 @@ class _EditProfileViewState extends State<EditProfileView> {
   void initState() {
     super.initState();
     // Load user data (Replace with actual user data retrieval logic)
-    _nameController.text = "John Doe";
-    _emailController.text = "johndoe@example.com";
-    _phoneController.text = "+1 234 567 890";
-    _locationController.text = "New York, USA";
+    _nameController.text = "Sachin Shrestha";
+    _emailController.text = "sachin007";
+    _phoneController.text = "9810119909";
+    _locationController.text = "Kathmandu,Nepal";
   }
 
   @override
