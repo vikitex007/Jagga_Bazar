@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/common/snackbar/my_snackbar.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+
 import '../view_model/home_cubit.dart';
 import '../view_model/home_state.dart';
 
@@ -19,6 +20,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     _loadThemePreference();
+    _startMotionDetection();  // Start listening for shake (motion sensor)
   }
 
   Future<void> _loadThemePreference() async {
@@ -28,36 +30,36 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  Future<void> _toggleTheme(bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isDarkTheme = value;
+  // ======================= MOTION DETECTION =======================
+  void _startMotionDetection() {
+    accelerometerEvents.listen((event) {
+      const shakeThreshold = 15.0;
+      if ((event.x.abs() > shakeThreshold ||
+          event.y.abs() > shakeThreshold ||
+          event.z.abs() > shakeThreshold)) {
+        print("🚨 Motion detected! Triggering logout.");
+        _confirmLogout(context);  // Auto-trigger logout confirmation on shake
+      }
     });
-    await prefs.setBool('isDarkTheme', value);
   }
 
   void _confirmLogout(BuildContext context) {
-    final homeCubit = context.read<HomeCubit>(); // Safe access
-    print("Confirm Logout Dialog Shown"); // ✅ Debug
+    final homeCubit = context.read<HomeCubit>();
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Logout'),
-        content: const Text('Are you sure you want to log out?'),
+        content: const Text('Are you sure you want to log out? (Motion detected!)'),
         actions: [
           TextButton(
-            onPressed: () {
-              print("Logout cancelled"); // ✅ Debug
-              Navigator.of(context).pop();
-            },
+            onPressed: () => Navigator.of(context).pop(),
             child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
-              print("Logout confirmed"); // ✅ Debug
               Navigator.of(context).pop();
-              homeCubit.logout(context);
+              homeCubit.logout(context);   // Call cubit's logout function
             },
             child: const Text('Logout', style: TextStyle(color: Colors.red)),
           ),
@@ -65,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
-  @override
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +111,6 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-// Function to Get Dynamic AppBar Title
   String _getAppBarTitle(int index) {
     switch (index) {
       case 0:
@@ -124,5 +125,4 @@ class _HomeViewState extends State<HomeView> {
         return "Home";
     }
   }
-
 }

@@ -6,6 +6,7 @@ import 'package:jagga_bazar/features/favourite/presentation/view/favourite_page.
 import 'package:jagga_bazar/features/post/presentation/view/post_view.dart';
 import 'package:jagga_bazar/features/profile/presentation/view/Profile_view.dart';
 import '../../../../app/di/di.dart';
+import '../../../auth/presentation/view_model/profile/profile_bloc.dart';
 import '../../../favourite/presentation/view_model/favourite_bloc.dart';
 import '../../../post/presentation/view_model/post_bloc.dart';
 
@@ -34,7 +35,7 @@ class HomeState extends Equatable {
         const FavouritePage(),
 
         BlocProvider(
-          create: (context) => getIt<PostBloc>(), // ✅ Correct way
+          create: (context) => getIt<ProfileBloc>(), // Use ProfileBloc here
           child: const ProfileView(),
         ),
       ],

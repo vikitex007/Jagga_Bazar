@@ -50,6 +50,17 @@ class AuthRemoteRepository implements IAuthRepository{
   }
 
   @override
+  Future<Either<Failure, AuthEntity>> getProfile() async {
+    try {
+      final profile = await _authRemoteDataSource.getProfile();  // Make sure your RemoteDataSource has this too.
+      return Right(profile);
+    } catch (e) {
+      return Left(ApiFailure(message: e.toString()));
+    }
+  }
+
+
+  @override
   Future<Either<Failure, String>> uploadProfilePicture(File file) async{
    try{
      final imageName = await _authRemoteDataSource.uploadProfilePicture(file);
@@ -60,6 +71,15 @@ class AuthRemoteRepository implements IAuthRepository{
    }
   }
 
+  @override
+  Future<Either<Failure, AuthEntity>> updateProfile(AuthEntity user) async {
+    try {
+      final updatedUser = await _authRemoteDataSource.updateProfile(user);
+      return Right(updatedUser);
+    } catch (e) {
+      return Left(ApiFailure(message: e.toString()));
+    }
+  }
   // @override
   // Future<Either<Failure, AuthEntity>> updateProfile(String userId, String newUsername, String newPassword) async {
   //   try {

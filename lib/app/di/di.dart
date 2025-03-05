@@ -11,9 +11,12 @@ import '../../core/network/hive_service.dart';
 import '../../features/auth/data/data_source/local_data_source/auth_local_datasource.dart';
 import '../../features/auth/data/repository/auth_local_repository/auth_local_repository.dart';
 import '../../features/auth/data/repository/auth_remote_repository/auth_remote_repository.dart';
+import '../../features/auth/domain/repository/auth_repository.dart';
+import '../../features/auth/domain/use_case/get_profile_usecase.dart';
 import '../../features/auth/domain/use_case/login_usecase.dart';
 import '../../features/auth/domain/use_case/register_usecase.dart';
 import '../../features/auth/presentation/view_model/login/login_bloc.dart';
+import '../../features/auth/presentation/view_model/profile/profile_bloc.dart';
 import '../../features/auth/presentation/view_model/register/register_bloc.dart';
 import '../../features/favourite/data/repository/fav_repo.dart';
 import '../../features/favourite/domain/repository/favourite_repository.dart';
@@ -49,6 +52,8 @@ Future<void> initDependencies() async {
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
+  await _initProfileDependencies();
+
 
 
   await _initSplashScreenDependencies();
@@ -184,6 +189,13 @@ _initPostDependencies(){
 
 
 
+
+
+
+
+
+
+
  _initRegisterDependencies() {
   //============================Data Source===================================
   // init local data source
@@ -266,6 +278,24 @@ _initLoginDependencies() async {
   );
 
 }
+
+
+
+//==================== profile ===============================
+
+ _initProfileDependencies() {
+   getIt.registerLazySingleton<UpdateProfileUseCase>(
+         () => UpdateProfileUseCase(getIt<IAuthRepository>()),
+   );
+
+   getIt.registerFactory<ProfileBloc>(
+         () => ProfileBloc(
+       updateProfileUseCase: getIt<UpdateProfileUseCase>(),
+     ),
+   );
+
+
+ }
 
 
 _initSplashScreenDependencies() async {

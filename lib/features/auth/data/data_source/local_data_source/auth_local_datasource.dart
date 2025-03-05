@@ -52,5 +52,11 @@ class AuthLocalDataSource implements IAuthDataSource {
     throw UnimplementedError();
   }
 
+  @override
+  Future<AuthEntity> getProfile() {
+    // TODO: implement getProfile
+    throw UnimplementedError();
+  }
+
 
 }
