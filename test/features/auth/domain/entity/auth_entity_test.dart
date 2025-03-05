@@ -44,15 +44,15 @@ void main() {
   );
 
   group('AuthEntity Equality Tests', () {
-    test('Test 1: AuthEntity objects with identical values should be equal', () {
+    test('Unit  Test 1: AuthEntity objects with identical values should be equal', () {
       expect(auth1, auth2); // Same values
     });
 
-    test('Test 2: AuthEntity objects with different values should not be equal', () {
+    test('Unit Test 2: AuthEntity objects with different values should not be equal', () {
       expect(auth1 == auth3, isFalse); // Different values
     });
 
-    test('Test 3: Same username cannot exist for multiple AuthEntity objects', () {
+    test('Unit Test 3: Same username cannot exist for multiple AuthEntity objects', () {
       usernameExists(String username) {
         return username == auth1.username;
       }
@@ -61,7 +61,7 @@ void main() {
       expect(isDuplicate, isTrue); // Duplicate username
     });
 
-    test('Test 4: Two different AuthEntity objects with the same values should be equal', () {
+    test('Unit Test 4: Two different AuthEntity objects with the same values should be equal', () {
       final authWithSameValues = const AuthEntity(
         userId: "2343423123124",
         location: "Matatirtha",
@@ -74,7 +74,7 @@ void main() {
       expect(auth1 == authWithSameValues, isTrue); // Should be equal
     });
 
-    test('Test 5: Same username cannot exist for multiple AuthEntity objects', () {
+    test('Unit Test 5: Same username cannot exist for multiple AuthEntity objects', () {
       usernameExists(String username) {
         return username == auth1.username;
       }
@@ -85,12 +85,12 @@ void main() {
   });
 
   group('AuthEntity Validation Tests', () {
-    test('Test 6: AuthEntity with unique username should be valid', () {
+    test('Unit Test 6: AuthEntity with unique username should be valid', () {
       final isUnique = auth1.username != auth3.username;
       expect(isUnique, isTrue); // Unique username
     });
 
-    test('Test 7: AuthEntity should maintain all values correctly', () {
+    test('Unit Test 7: AuthEntity should maintain all values correctly', () {
       expect(auth1.userId, "2343423123124");
       expect(auth1.location, "Matatirtha");
       expect(auth1.fullName, "Sachin Shrestha");
@@ -100,7 +100,7 @@ void main() {
       expect(auth1.password, "sachin123");
     });
 
-    test('Test 8: AuthEntity should not be equal if any property is different', () {
+    test('Unit Test 8: AuthEntity should not be equal if any property is different', () {
     final modifiedAuth = AuthEntity(
     userId: auth1.userId,
     location: auth1.location,
@@ -115,11 +115,11 @@ void main() {
 });
 
     
-    test('Test 9: AuthEntity objects with different usernames should not be equal', () {
+    test('Unit Test 9: AuthEntity objects with different usernames should not be equal', () {
       expect(auth1.username == auth3.username, isFalse); // Different usernames
     });
 
-    test('Test 10: AuthEntity objects should have the same password if unchanged', () {
+    test('UnitTest 10: AuthEntity objects should have the same password if unchanged', () {
       expect(auth1.password, "sachin123"); // Same password as the original auth1
     });
   });
